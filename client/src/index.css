@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(0, 0%, 15%);
+  --muted: hsl(331, 100%, 97%);
+  --muted-foreground: hsl(0, 0%, 42%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(0, 0%, 15%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(0, 0%, 15%);
+  --border: hsl(331, 20%, 90%);
+  --input: hsl(331, 20%, 90%);
+  --primary: hsl(340, 82%, 52%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(331, 100%, 97%);
+  --secondary-foreground: hsl(0, 0%, 15%);
+  --accent: hsl(331, 100%, 97%);
+  --accent-foreground: hsl(0, 0%, 15%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(340, 82%, 52%);
+  --radius: 0.5rem;
+  
+  /* PadHer custom colors */
+  --primary-pink: hsl(340, 82%, 52%);
+  --secondary-purple: hsl(291, 64%, 42%);
+  --accent-pink: hsl(331, 100%, 97%);
+  --text-dark: hsl(0, 0%, 18%);
+  --text-light: hsl(0, 0%, 42%);
+}
+
+.dark {
+  --background: hsl(340, 10%, 4%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(340, 15%, 15%);
+  --muted-foreground: hsl(0, 0%, 65%);
+  --popover: hsl(340, 10%, 4%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(340, 10%, 4%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(340, 15%, 15%);
+  --input: hsl(340, 15%, 15%);
+  --primary: hsl(340, 82%, 52%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(340, 15%, 15%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(340, 15%, 15%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 63%, 31%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(340, 82%, 52%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    background: linear-gradient(to right, hsl(340, 82%, 52%), hsl(291, 64%, 42%));
+    @apply text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105;
+  }
+  
+  .card-shadow {
+    box-shadow: 0 10px 25px rgba(233, 30, 99, 0.1);
+  }
+  
+  .gradient-overlay {
+    background: linear-gradient(135deg, rgba(233, 30, 99, 0.8) 0%, rgba(156, 39, 176, 0.6) 100%);
+  }
+}
+
+@layer utilities {
+  .text-primary-pink {
+    color: hsl(340, 82%, 52%);
+  }
+  
+  .text-secondary-purple {
+    color: hsl(291, 64%, 42%);
+  }
+  
+  .text-accent-pink {
+    color: hsl(331, 100%, 97%);
+  }
+  
+  .bg-primary-pink {
+    background-color: hsl(340, 82%, 52%);
+  }
+  
+  .bg-secondary-purple {
+    background-color: hsl(291, 64%, 42%);
+  }
+  
+  .bg-accent-pink {
+    background-color: hsl(331, 100%, 97%);
+  }
+  
+  .border-primary-pink {
+    border-color: hsl(340, 82%, 52%);
+  }
+
+  .animate-slide {
+    animation: slide 15s infinite;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .animate-counter {
+    animation: counter 2s ease-out;
+  }
+}
+
+@keyframes slide {
+  0%, 20% { 
+    background-image: url('https://pixabay.com/get/g981d8d51d4193847cddb2069a3e3532a872c5a642df7f1166b4dab9c5213337cb15d43533423348097e4f9b8c3c2efcb8189e55c727ac984bcf04ddd3ec6e37d_1280.jpg'); 
+  }
+  25%, 45% { 
+    background-image: url('https://images.unsplash.com/photo-1497486751825-1233686d5d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080'); 
+  }
+  50%, 70% { 
+    background-image: url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080'); 
+  }
+  75%, 95% { 
+    background-image: url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080'); 
+  }
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes counter {
+  from { 
+    transform: scale(0.8); 
+    opacity: 0; 
+  }
+  to { 
+    transform: scale(1); 
+    opacity: 1; 
+  }
+}
