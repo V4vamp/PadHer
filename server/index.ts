@@ -1,10 +1,25 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+const clientBuildPath = path.join(__dirname, "client");
+
+
+app.use(express.static(clientBuildPath));
+
+
+app.get("*", (_req, res) => {
+  res.sendFile(path.join(clientBuildPath, "index.html"));
+});
 
 app.use((req, res, next) => {
   const start = Date.now();
