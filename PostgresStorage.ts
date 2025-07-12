@@ -205,10 +205,10 @@ export class PostgresStorage implements IStorage {
       .where(eq(eventRegistrations.userId, userId));
   }
 
- async getImpactStats() {
-  const result = await db.select().from(impactStats);
-  return result[0];
-}
+  async getImpactStats() {
+    const result = await db.select().from(impactStats);
+    return result[0];
+  }
 
   async updateImpactStats(data: Partial<InsertImpactStats>) {
     const result = await db.update(impactStats).set(data).returning();

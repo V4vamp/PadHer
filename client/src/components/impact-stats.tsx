@@ -2,13 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import type { ImpactStats } from "@shared/schema";
 
-const fetchImpactStats = async (): Promise<ImpactStats> => {
-  const response = await fetch("http://localhost:5050/api/impact-stats");
-  if (!response.ok) {
-    throw new Error("Failed to fetch impact stats");
-  }
-  return response.json();
-};
 interface CounterProps {
   end: number;
   duration?: number;
@@ -53,10 +46,9 @@ function Counter({ end, duration = 2000, className = "" }: CounterProps) {
 }
 
 export default function ImpactStats() {
-  const { data: stats, isLoading, error } = useQuery<ImpactStats>({
-  queryKey: ["impactStats"],
-  queryFn: fetchImpactStats,
-});
+  const { data: stats, isLoading } = useQuery<ImpactStats>({
+    queryKey: ["/api/impact-stats"],
+  });
 
   if (isLoading || !stats) {
     return (
