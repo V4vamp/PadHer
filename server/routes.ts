@@ -1,4 +1,4 @@
-import type { Express } from "express";
+import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
@@ -242,14 +242,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Impact Stats
-  app.get("/api/impact-stats", async (req, res) => {
-    try {
-      const stats = await storage.getImpactStats();
-      res.json(stats);
-    } catch (error: any) {
-      res.status(500).json({ message: error.message });
+  app.get("/api/impact-stats", async (req: Request, res: Response) => {
+  try {
+    const stats = await storage.getImpactStats();
+
+    if (!stats) {
+      return res.status(404).json({ message: "Impact stats not found" });
     }
-  });
+
+    return res.status(200).json(stats);
+  } catch (error: any) {
+    console.error("Error fetching impact stats:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
 
   app.patch("/api/impact-stats", authenticateUser, async (req, res) => {
     try {

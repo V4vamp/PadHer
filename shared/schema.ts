@@ -2,6 +2,55 @@ import { pgTable, text, serial, integer, boolean, timestamp, json } from "drizzl
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
+export interface IStorage {
+  // Users
+  getUser(id: number): Promise<User | undefined>;
+  getUserByUsername(username: string): Promise<User | undefined>;
+  getUserByEmail(email: string): Promise<User | undefined>;
+  createUser(user: InsertUser): Promise<User>;
+  updateUser(id: number, user: Partial<InsertUser>): Promise<User | undefined>;
+
+  // Donations
+  createDonation(donation: InsertDonation): Promise<Donation>;
+  getDonations(): Promise<Donation[]>;
+  getDonationsByUser(userId: number): Promise<Donation[]>;
+  updateDonation(id: number, donation: Partial<InsertDonation>): Promise<Donation | undefined>;
+
+  // Volunteers
+  createVolunteer(volunteer: InsertVolunteer): Promise<Volunteer>;
+  getVolunteers(): Promise<Volunteer[]>;
+  updateVolunteerStatus(id: number, status: string): Promise<Volunteer | undefined>;
+
+  // Volunteer Opportunities
+  getVolunteerOpportunities(): Promise<VolunteerOpportunity[]>;
+  createVolunteerOpportunity(opportunity: InsertVolunteerOpportunity): Promise<VolunteerOpportunity>;
+  updateVolunteerOpportunity(id: number, opportunity: Partial<InsertVolunteerOpportunity>): Promise<VolunteerOpportunity | undefined>;
+
+  // Blog Posts
+  getBlogPosts(): Promise<BlogPost[]>;
+  getPublishedBlogPosts(): Promise<BlogPost[]>;
+  getBlogPost(id: number): Promise<BlogPost | undefined>;
+  getBlogPostBySlug(slug: string): Promise<BlogPost | undefined>;
+  createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
+  updateBlogPost(id: number, post: Partial<InsertBlogPost>): Promise<BlogPost | undefined>;
+
+  // Events
+  getEvents(): Promise<Event[]>;
+  getActiveEvents(): Promise<Event[]>;
+  getEvent(id: number): Promise<Event | undefined>;
+  createEvent(event: InsertEvent): Promise<Event>;
+  updateEvent(id: number, event: Partial<InsertEvent>): Promise<Event | undefined>;
+
+  // Event Registrations
+  createEventRegistration(registration: InsertEventRegistration): Promise<EventRegistration>;
+  getEventRegistrations(eventId: number): Promise<EventRegistration[]>;
+  getUserEventRegistrations(userId: number): Promise<EventRegistration[]>;
+
+  // Impact Stats
+  getImpactStats(): Promise<ImpactStats | undefined>;
+  updateImpactStats(stats: Partial<InsertImpactStats>): Promise<ImpactStats>;
+}
+
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   username: text("username").notNull().unique(),
